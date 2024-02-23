@@ -15,6 +15,8 @@ namespace ChatGPT_Integration.Commands
         public override async Task MessageReceived(SocketMessage message)
         {
             if (message.Author.IsBot) return;
+            // so the bot doesn't try to reply to every message in the chat and API spam your ChatGPT app.
+            if (message.Reference == null) return;
 
             using (message.Channel.EnterTypingState())
             {
